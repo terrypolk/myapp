@@ -1,0 +1,37 @@
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: myapp
+  name: api-service
+spec:
+  selector:
+    app: api
+  type: NodePort
+  ports:
+  - port: 5555
+    nodePort: 31000
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: myapp
+  name: api
+  labels:
+    app: api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: api
+  template:
+    metadata:
+      labels:
+        app: api
+    spec:
+      containers:
+      - image: gh_api:latest
+        imagePullPolicy: Never
+        name: api
+        ports:
+        - containerPort: 5555
+          name: api
