@@ -9,7 +9,7 @@ spec:
   type: NodePort
   ports:
   - port: 80
-    nodePort: 31002
+    nodePort: 31000
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -29,7 +29,7 @@ spec:
         app: proxy
     spec:
       containers:
-      - image: api-proxy:v1
+      - image: api-proxy:v2
         imagePullPolicy: Never
         name: proxy
         ports:
